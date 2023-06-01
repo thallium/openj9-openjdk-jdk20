@@ -74,6 +74,7 @@ public class StressStackOverflow {
                         ScopedValue.where(el, el.get() + 1).run(() -> fibonacci_pad(20, this));
                 }
                 if (!last.equals(el.get())) {
+                    System.out.println("Line 77: " + el.get());
                     throw testFailureException;
                 }
             } catch (StackOverflowError e) {
@@ -89,6 +90,7 @@ public class StressStackOverflow {
                 // correctly.
             } finally {
                 if (!last.equals(el.get())) {
+                    System.out.println("Line 94: " + el.get());
                     throw testFailureException;
                 }
             }
@@ -128,9 +130,11 @@ public class StressStackOverflow {
             return fibonacci_pad1(tlr.nextInt(n), op);
         } catch (StackOverflowError err) {
             if (!inheritedValue.get().equals(I_42)) {
+                System.out.println("Line 134: " + inheritedValue.get());
                 throw testFailureException;
             }
             if (!last.equals(el.get())) {
+                System.out.println("Line 138: " + el.get());
                 throw testFailureException;
             }
             throw err;
@@ -181,6 +185,7 @@ public class StressStackOverflow {
                                         // correctly.
                                     } finally {
                                         if (!inheritedValue.get().equals(I_42)) {
+                                            System.out.println("Line 188: " + inheritedValue.get());
                                             throw testFailureException;
                                         }
                                     }
@@ -204,6 +209,7 @@ public class StressStackOverflow {
     }
 
     public static void main(String[] args) {
+        System.out.println("Hello");
         var torture = new StressStackOverflow();
         while (torture.ITERS > 0) {
             torture.run();
